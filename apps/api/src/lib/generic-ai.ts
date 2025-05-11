@@ -1,4 +1,4 @@
-import { openai } from "@ai-sdk/openai";
+import { openai, createOpenAI } from "@ai-sdk/openai";
 import { createOllama } from "ollama-ai-provider";
 import { anthropic } from "@ai-sdk/anthropic";
 import { groq } from "@ai-sdk/groq";
@@ -23,7 +23,9 @@ const defaultProvider: Provider = process.env.OLLAMA_BASE_URL
   : "openai";
 
 const providerList: Record<Provider, any> = {
-  openai, //OPENAI_API_KEY
+  openai: createOpenAI({
+    baseURL: process.env.OPENAI_BASE_URL
+  }), //OPENAI_API_KEY
   ollama: createOllama({
     baseURL: process.env.OLLAMA_BASE_URL,
   }),
